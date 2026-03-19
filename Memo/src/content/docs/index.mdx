@@ -1,0 +1,36 @@
+---
+title: Memo COBOL
+description: Base de documentation COBOL structuree a partir des notes Obsidian.
+template: splash
+hero:
+  tagline: Une base de cours et de travaux pratiques COBOL sous Astro Starlight.
+  actions:
+    - text: Ouvrir les fondamentaux
+      link: /fondamentaux/apercu/
+      icon: right-arrow
+    - text: Voir les travaux pratiques
+      link: /tp/
+      icon: open-book
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Contenu
+
+<CardGrid stagger>
+	<Card title="Fondamentaux" icon="open-book">
+		Structure d'un programme, types de donnees, fichiers, E/S, fonctions et compilation.
+	</Card>
+	<Card title="Instructions" icon="seti">
+		Rappels sur MOVE, COMPUTE, IF, EVALUATE, PERFORM, STRING et UNSTRING.
+	</Card>
+	<Card title="TP" icon="document">
+		Une page par exercice, du TP1 au TP12, avec objectif, entrees, sorties et contraintes.
+	</Card>
+	<Card title="Navigation coherente" icon="list-tree">
+		L'arborescence Obsidian a ete recomposee en rubriques stables pour une lecture plus simple.
+	</Card>
+	<Card title="Point d'entree recommande" icon="arrow-right">
+		Commencer par la vue d'ensemble, puis consulter les instructions et enfin les TP.
+	</Card>
+</CardGrid>
