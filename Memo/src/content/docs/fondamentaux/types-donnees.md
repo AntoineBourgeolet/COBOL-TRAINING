@@ -40,3 +40,81 @@ WORKING-STORAGE SECTION.
 - `REDEFINES` : partage de memoire
 - `OCCURS` : tableau
 - `COMP`, `COMP-3` : formats binaires ou packed
+
+## Dates
+
+COBOL n'a pas de type date natif. Une date est toujours stockee dans une zone numerique ou alphanumerique et manipulee manuellement ou via `FUNCTION CURRENT-DATE`.
+
+### Formats courants
+
+| Format PIC | Usage | Exemple de valeur |
+| --- | --- | --- |
+| `PIC 9(8)` | Date entiere `AAAAMMJJ` | `20250319` |
+| `PIC 9(4)` | Annee seule | `2025` |
+| `PIC 9(2)` | Mois ou jour seul | `03` |
+| `PIC X(10)` | Date formatee lisible | `2025-03-19` |
+
+### Declaration typique
+
+```cobol
+01 WS-DATE.
+   05 WS-ANNEE  PIC 9(4).
+   05 WS-MOIS   PIC 9(2).
+   05 WS-JOUR   PIC 9(2).
+```
+
+Permet d'acceder aux sous-parties independamment :
+
+```cobol
+MOVE WS-ANNEE TO ...
+```
+
+### Recuperer la date du jour
+
+`FUNCTION CURRENT-DATE` retourne une chaine de 21 caracteres :
+
+```
+AAAAMMJJHHMMSSJJSSSSSS+HHMM
+positions 1-8 : date
+positions 9-14 : heure
+positions 15-16 : centieme de seconde
+positions 17-21 : decalage UTC
+```
+
+```cobol
+01 WS-DATE-COURANTE PIC X(21).
+01 WS-AAAA          PIC 9(4).
+01 WS-MM            PIC 9(2).
+01 WS-JJ            PIC 9(2).
+
+MOVE FUNCTION CURRENT-DATE TO WS-DATE-COURANTE.
+MOVE WS-DATE-COURANTE(1:4)  TO WS-AAAA.
+MOVE WS-DATE-COURANTE(5:2)  TO WS-MM.
+MOVE WS-DATE-COURANTE(7:2)  TO WS-JJ.
+```
+
+### Comparaison de dates
+
+En stockant au format `AAAAMMJJ` dans une zone `PIC 9(8)`, la comparaison arithmetique est directement correcte :
+
+```cobol
+IF WS-DATE-EFFET > WS-DATE-LIMITE
+    DISPLAY "DATE DEPASSEE"
+END-IF.
+```
+
+### Calcul d'echeance en mois
+
+COBOL ne calcule pas nativement les mois. L'approche courante est de decomposer et recomposer :
+
+```cobol
+01 WS-MOIS-TOTAL PIC 9(6).
+
+COMPUTE WS-MOIS-TOTAL = (WS-ANNEE * 12) + WS-MOIS + WS-DUREE-MOIS.
+COMPUTE WS-ANNEE-ECH  = WS-MOIS-TOTAL / 12.
+COMPUTE WS-MOIS-ECH   = FUNCTION MOD(WS-MOIS-TOTAL, 12).
+IF WS-MOIS-ECH = 0
+    MOVE 12 TO WS-MOIS-ECH
+    SUBTRACT 1 FROM WS-ANNEE-ECH
+END-IF.
+```

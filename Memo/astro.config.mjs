@@ -16,14 +16,15 @@ export default defineConfig({
 						{ label: 'Types de donnees', slug: 'fondamentaux/types-donnees' },
 						{ label: 'Gestion des fichiers', slug: 'fondamentaux/gestion-fichiers' },
 						{ label: 'Entree / sortie', slug: 'fondamentaux/entree-sortie' },
-						{ label: 'Fonctions intrinseques', slug: 'fondamentaux/fonctions-intrinseques' },
+						
 						{ label: 'Compilation', slug: 'fondamentaux/compilation' },
 					],
 				},
 				{
-					label: 'Instructions',
+					label: 'Instructions / Fonctions',
 					items: [
 						{ label: 'Instructions simples', slug: 'instructions/simples' },
+						{ label: 'Fonctions intrinseques', slug: 'instructions/fonctions-intrinseques' },
 						{ label: 'Instructions utiles', slug: 'instructions/utiles' },
 					],
 				},

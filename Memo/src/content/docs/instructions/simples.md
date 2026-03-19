@@ -33,11 +33,49 @@ DIVIDE TOTAL BY N GIVING MOYENNE.
 
 ## IF / ELSE / END-IF
 
+Comparateurs possibles dans un `IF` :
+
+- `=` : egal a
+- `>` : strictement superieur a
+- `<` : strictement inferieur a
+- `>=` : superieur ou egal a
+- `<=` : inferieur ou egal a
+- `<>` : different de
+
+Formes COBOL equivalentes souvent rencontrees :
+
+- `IS EQUAL TO`
+- `IS GREATER THAN`
+- `IS LESS THAN`
+- `IS GREATER THAN OR EQUAL TO`
+- `IS LESS THAN OR EQUAL TO`
+- `IS NOT EQUAL TO`
+
 ```cobol
 IF AGE > 18
     MOVE "MAJEUR" TO STATUT
 ELSE
     MOVE "MINEUR" TO STATUT
+END-IF.
+```
+
+Exemples :
+
+```cobol
+IF WS-MONTANT = 0
+    DISPLAY "MONTANT NUL"
+END-IF.
+
+IF WS-AGE >= 18
+    MOVE "MAJEUR" TO WS-STATUT
+END-IF.
+
+IF WS-CODE <> "AUTO"
+    DISPLAY "CODE DIFFERENT"
+END-IF.
+
+IF WS-NOTE IS LESS THAN 10
+    DISPLAY "INSUFFISANT"
 END-IF.
 ```
 
